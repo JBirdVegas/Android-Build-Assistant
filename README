@@ -1,0 +1,11 @@
+######################
+#script but have root#
+######################
+
+This will help setup the build encironment
+
+This script automates build environment setup, source repo and simplifies building for your device.
+
+Tested on Linux Mint 10 and Ubuntu 10.10 but as long as your *nux distro is Ubuntu 10.xx based then it shouldn't have problems
+
+enjoy
