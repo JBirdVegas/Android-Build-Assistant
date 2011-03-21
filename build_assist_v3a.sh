@@ -191,8 +191,9 @@ if [ "$GO" = "1" ]; then
 
 	#full setup
 	if [ "$SETUP" = "1" ]; then
+		add-apt-repository "deb http://archive.canonical.com/ maverick partner"
 		sudo apt-get install git-core gnupg flex bison gperf libsdl1.2-dev libesd0-dev libwxgtk2.6-dev squashfs-tools build-essential zip curl libncurses5-dev zlib1g-dev sun-java6-jdk pngcrush schedtool
-		add-apt-repository "deb http://archive.canonical.com/ maverick partner"		
+				
 		if [ "$BIT" = "bit64" ]; then
 			sudo apt-get install g++-multilib lib32z1-dev lib32ncurses5-dev lib32readline5-dev gcc-4.3-multilib g++-4.3-multilib
 		fi
@@ -244,12 +245,13 @@ if [ "$GO" = "1" ]; then
 	#install sdk
 	elif [ "$SETUP" = "5" ]; then
 		mkdir -p /home/$SUDO_USER/dev/android-sdk-linux_x86
-		cd /home/$SUDO_USER/dev/android-sdk-linux_x86
+		export PATH=$PATH:/home/$SUDO_USER/bin:/home/$SUDO_USER/dev/android-sdk-linux_x86/platform-tools:/home/$SUDO_USER/dev/android-sdk-linux_x86/tools
+		cd /home/$SUDO_USER/dev/
 		wget http://dl.google.com/android/android-sdk_r10-linux_x86.tgz -O - | tar -zxf -
 		echo "Changing ownership of sdk step 1"
-		chown -R $SUDO_USER /home/$SUDO_USER/dev/android-sdk-linux_x86
+		chown -R $SUDO_USER:$SUDO_USER /home/$SUDO_USER/dev/android-sdk-linux_x86
 		#cli trigger for sdk update required since it brings down adb (android developement bridge) doccumented ~/dev/android-sdk-linux_x86/SDK Readme.txt
-		tools/android update adb
+		/home/$SUDO_USER/dev/android-sdk-linux_x86/tools/android update adb
 		echo "Changing ownership of adb update"
 		chown -R $SUDO_USER:$SUDO_USER /home/$SUDO_USER/dev/android-sdk-linux_x86
 		export PATH=$PATH:/home/$SUDO_USER/dev/android-sdk-linux_x86/platform-tools
